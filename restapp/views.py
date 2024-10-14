@@ -92,7 +92,7 @@ def delete_restaurant(request, id):
     return render(request, "delete_restaurant.html")
 
 
-def add_employee(request, id):
+def add_employee(request):
     if request.method == "POST":
         employee = EmployeeForm(request.POST)
         if employee.is_valid():
