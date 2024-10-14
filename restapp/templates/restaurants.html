@@ -8,13 +8,13 @@
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h3 class="card-title">{{ r.name }}</h3>
-                            <p class="card-text">{{ r.address }}</p>
-                            <p class="card-text">{{ r.phone }}</p>
-                            <p class="card-text">{{ r.email }}</p>
+                            <h3 class="card-title text-primary  text-center">{{ r.name }}</h3>
+                            <p class="card-text"><strong>Location: </strong>{{ r.address }}</p>
+                            <p class="card-text"><strong>Phone: </strong>{{ r.phone }}</p>
+                            <p class="card-text"><strong>Email: </strong>{{ r.email }}</p>
                             <p class="card-text">
                                 {% if r.capacity > 10 %}
-                                    Capacity: {{ r.capacity }}
+                                    <strong>Capacity: </strong>{{ r.capacity }}
                                 {% else %}
                                     <p>No capacity.</p>
                                 {% endif %}
