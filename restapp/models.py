@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Restaurant(models.Model):
@@ -12,6 +13,12 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_employees(self):
+        # Return the queryset of employees for this restaurant
+        return Employee.objects.filter(restaurant=self)
+
+
 
 class Employee(models.Model):
     POSITION_CHOICES = [
@@ -32,6 +39,7 @@ class Employee(models.Model):
     def __str__(self):
         return f"{self.name} {self.surname}"
 
+
 class Dish(models.Model):
     name = models.CharField(max_length=30)
     ingredients = models.TextField(blank=True, null=True)
@@ -41,6 +49,7 @@ class Dish(models.Model):
     def __str__(self):
         return f"{self.name} - {self.calories}"
 
+
 class DishRestaurant(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
@@ -48,6 +57,7 @@ class DishRestaurant(models.Model):
 
     def __str__(self):
         return f"{self.restaurant} {self.dish} {self.price}"
+
 
 class BusinessHours(models.Model):
     DAY_CHOISES = [
