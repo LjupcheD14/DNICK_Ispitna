@@ -37,7 +37,7 @@ class Employee(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.name} {self.surname}"
+        return f"{self.name} {self.surname}-{self.position}"
 
 
 class Dish(models.Model):
