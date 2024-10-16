@@ -1,33 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h2>Add New Restaurant</h2>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Add New Restaurant</h2>
 
-                    <form action="/add_restaurant/" method="post">
-                        {% csrf_token %}
-                        {{ restaurant_form.as_p }}
+                        <form action="/add_restaurant/" method="post">
+                            {% csrf_token %}
+                            {{ restaurant_form.as_p }}
 
-                        <h3>Business Hours</h3>
-                        {{ formset.management_form }}
+                            <h3>Business Hours</h3>
 
-                        {% for form in formset %}
-                            <div class="border p-3 my-2">
-                                {{ form.as_p }}
+                            <div id="business-hours-formset">
+                                {{ formset.management_form }}
+                                {% for form in formset %}
+                                    <div class="border p-3 my-2 form-inline form-template">
+                                        {{ form.as_p }}
+                                    </div>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
 
-                        <div class="d-grid mt-3">
-                            <input type="submit" value="Submit" class="btn btn-primary">
-                        </div>
-                    </form>
+                            <button type="button" class="btn btn-secondary mt-2" id="add_business_hours">
+                                Add More Hours
+                            </button>
+
+                            <div class="d-grid mt-3">
+                                <input type="submit" value="Submit" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+<script>
+    document.getElementById("add_business_hours").addEventListener('click', function () {
+        let formsetDiv = document.getElementById('business-hours-formset');
+        let totalForms = document.querySelector('#id_businesshours_set-TOTAL_FORMS');
+        let formCount = parseInt(totalForms.value);
+
+        console.log("Button clicked");
+
+        // Clone the template for a new form
+        let newForm = document.querySelector('.form-template').cloneNode(true);
+
+        // Update the cloned form’s input names and IDs to include the new form count
+        let inputs = newForm.querySelectorAll('input, select');
+        inputs.forEach(function (input) {
+            input.name = input.name.replace(`-${formCount - 1}-`, `-${formCount}-`);
+            input.id = input.id.replace(`-${formCount - 1}-`, `-${formCount}-`);
+            input.value = '';  // Clear any previous values
+        });
+
+        // Append the new form to the formset
+        formsetDiv.appendChild(newForm);
+
+        // Update the form count in TOTAL_FORMS so Django knows to process this form too
+        totalForms.value = formCount + 1;
+    });
+</script>
+
+
+
 {% endblock %}

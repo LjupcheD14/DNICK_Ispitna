@@ -69,6 +69,7 @@ def index(request):
 
 def add_restaurant(request):
     BusinessHoursFormSet = inlineformset_factory(Restaurant, BusinessHours, form=BusinessHoursForm, extra=1)
+
     if request.method == "POST":
         restaurant_form = RestaurantForm(request.POST)
         formset = BusinessHoursFormSet(request.POST)
