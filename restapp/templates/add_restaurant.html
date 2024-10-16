@@ -1,33 +1,3 @@
-{#{% extends "base.html" %}#}
-{##}
-{#{% block content %}#}
-{#<div class="container mt-4">#}
-{#    <div class="row justify-content-center">#}
-{#        <div class="col-md-6">#}
-{#            <div class="card">#}
-{#                <div class="card-body">#}
-{#                     <form action="/add_restaurant/" method="post">#}
-{#                        {% csrf_token %}#}
-{##}
-{#                        <!-- Render Restaurant form -->#}
-{#                        <h5>Restaurant Details</h5>#}
-{#                        {{ restaurant_form.as_p }}#}
-{##}
-{#                        <!-- Render Business Hours form -->#}
-{#                        <h5>Business Hours</h5>#}
-{#                        {{ business_hours_form.as_p }}#}
-{##}
-{#                        <div class="d-grid mt-3">#}
-{#                            <input type="submit" value="Submit" class="btn btn-primary">#}
-{#                        </div>#}
-{#                    </form>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}
-
 {% extends "base.html" %}
 
 {% block content %}
