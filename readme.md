@@ -16,6 +16,6 @@
 3. Bootstrap 5.3.2
 4. DataBase SQLite3
 
-## Logic of application 
+## Logic of application
 
-![PythonDjango app diagram image.png](..%2F..%2F..%2F..%2FDesktop%2FPythonDjango%20app%20diagram%20image.png)
+![PythonDjango app diagram image.png](PythonDjango%20app%20diagram%20image.png)
