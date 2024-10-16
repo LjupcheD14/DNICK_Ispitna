@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from restapp.models import Restaurant, Dish
-from restapp.forms import EmployeeForm, NameForm, RestaurantForm, DishForm
+from restapp.models import Restaurant, Dish, BusinessHours
+from restapp.forms import EmployeeForm, NameForm, RestaurantForm, DishForm, BusinessHoursForm
+from django.forms import inlineformset_factory
 
 
 # Create your views here.
@@ -48,17 +49,48 @@ def index(request):
     return render(request, "index.html", {"form": form, "your_name": your_name})
 
 
+# def add_restaurant(request):
+#     if request.method == "POST":
+#         restaurant = RestaurantForm(request.POST)
+#         business_hours_form = BusinessHoursForm(request.POST)
+#
+#         if restaurant.is_valid() and business_hours_form.is_valid():
+#             restaurant.save()
+#             business_hours = business_hours_form.save(commit=False)
+#             business_hours.restaurant = restaurant
+#             business_hours.save()
+#             return redirect("restaurants")
+#     else:
+#         restaurant = RestaurantForm()
+#         business_hours_form = BusinessHoursForm()
+#     return render(request, "add_restaurant.html",
+#                   {"restaurant_form": restaurant, 'business_hours_form':business_hours_form})
+#
+
 def add_restaurant(request):
+    BusinessHoursFormSet = inlineformset_factory(Restaurant, BusinessHours, form=BusinessHoursForm, extra=1)
     if request.method == "POST":
-        restaurant = RestaurantForm(request.POST)
-        if restaurant.is_valid():
-            restaurant.save()
-            return redirect("restaurants")
+        restaurant_form = RestaurantForm(request.POST)
+        formset = BusinessHoursFormSet(request.POST)
+
+        if restaurant_form.is_valid() and formset.is_valid():
+            restaurant = restaurant_form.save()
+            business_hours = formset.save(commit=False)
+
+            for hour in business_hours:
+                hour.restaurant = restaurant  # Link the BusinessHours to the new Restaurant
+                hour.save()
+
+            return redirect('restaurants')  # Replace with your success URL or redirect
+
     else:
-        restaurant = RestaurantForm()
-    return render(request, "add_restaurant.html", {"form": restaurant})
+        restaurant_form = RestaurantForm()
+        formset = BusinessHoursFormSet()
 
-
+    return render(request, 'add_restaurant.html', {
+        'restaurant_form': restaurant_form,
+        'formset': formset
+    })
 def add_dish(request):
     if request.method == "POST":
         dish = DishForm(request.POST)

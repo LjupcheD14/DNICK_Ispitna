@@ -1,6 +1,6 @@
 from django import forms
 
-from restapp.models import Restaurant, Employee, Dish
+from restapp.models import Restaurant, Employee, Dish, BusinessHours
 
 class NameForm(forms.Form):
     your_name = forms.CharField(label="Your name is ", max_length=20)
@@ -28,3 +28,8 @@ class EmployeeForm(forms.ModelForm):
         model = Employee
         fields = "__all__"
         exclude = ["user"]
+
+class BusinessHoursForm(forms.ModelForm):
+    class Meta:
+        model = BusinessHours
+        fields = "__all__"
