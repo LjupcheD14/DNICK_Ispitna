@@ -18,6 +18,9 @@ class Restaurant(models.Model):
         # Return the queryset of employees for this restaurant
         return Employee.objects.filter(restaurant=self)
 
+    def get_hours(self):
+        hours = BusinessHours.objects.filter(restaurant=self)
+        return "; ".join([str(hour) for hour in hours])
 
 
 class Employee(models.Model):
@@ -74,3 +77,6 @@ class BusinessHours(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     time_from = models.TimeField()
     time_to = models.TimeField()
+
+    def __str__(self):
+        return f"{self.day_of_the_week} : {self.time_from}-{self.time_to}"

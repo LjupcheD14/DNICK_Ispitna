@@ -12,6 +12,7 @@
                 <p><strong>Capacity:</strong> {{ restaurant.capacity }}</p>
                 <p><strong>Phone:</strong> {{ restaurant.phone }}</p>
                 <p><strong>Email:</strong> {{ restaurant.email }}</p>
+                <p><strong>Working Hours:</strong> {{ restaurant.get_hours }}</p>
                 <p><strong>Employees:</strong></p>
                 <ul class="list-group">
                     {% for employee in restaurant.get_employees %}
