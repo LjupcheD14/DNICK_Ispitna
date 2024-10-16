@@ -29,6 +29,9 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="text-center mt-4">
+            <p>Number of restaurants: {{ count }}</p>
+        </div>
         <div class="text-center mb-3">
             <a href="{% url 'Add restaurant' %}" class="btn btn-primary">Add restaurant</a>
         </div>

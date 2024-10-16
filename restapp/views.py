@@ -10,7 +10,7 @@ from django.forms import inlineformset_factory
 def restaurants(request):
     restaurants = Restaurant.objects.all()
 
-    return render(request, "restaurants.html", {"restaurants": restaurants, "new_var": 1})
+    return render(request, "restaurants.html", {"restaurants": restaurants, "new_var": 1, "count": len(restaurants)})
 
 
 def restaurant_detail(request, restaurant_id):
