@@ -10,8 +10,12 @@
 1. python manage.py createsuperuser
 ## Start the server
 1. python manage.py runserver
-# TechStack
+## TechStack
 1. Python 3.12.2
 2. Django 5.0.3
 3. Bootstrap 5.3.2
 4. DataBase SQLite3
+
+## Logic of application 
+
+![PythonDjango app diagram image.png](..%2F..%2F..%2F..%2FDesktop%2FPythonDjango%20app%20diagram%20image.png)
