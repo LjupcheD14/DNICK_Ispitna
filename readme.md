@@ -14,3 +14,4 @@
 1. Python 3.12.2
 2. Django 5.0.3
 3. Bootstrap 5.3.2
+4. DataBase SQLite3
