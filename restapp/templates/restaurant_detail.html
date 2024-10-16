@@ -13,6 +13,20 @@
                 <p><strong>Phone:</strong> {{ restaurant.phone }}</p>
                 <p><strong>Email:</strong> {{ restaurant.email }}</p>
                 <p><strong>Working Hours:</strong> {{ restaurant.get_hours }}</p>
+
+                <p><strong>Menu:</strong></p>
+                <ul>
+                    <!-- Loop through each dish associated with the restaurant -->
+                    {% for dish_res in restaurant.dishrestaurant_set.all %}
+                        <!-- Display the dish name and its price in a list item -->
+                        <li>{{ dish_res.dish.name }} - {{ dish_res.price }}</li>
+                    {% empty %}
+                        <!-- If there are no dishes available, show this message -->
+                        <li>No dishes available.</li>
+                    {% endfor %}
+                </ul>
+
+
                 <p><strong>Employees:</strong></p>
                 <ul class="list-group">
                     {% for employee in restaurant.get_employees %}

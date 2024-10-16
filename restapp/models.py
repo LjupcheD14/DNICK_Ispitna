@@ -22,6 +22,10 @@ class Restaurant(models.Model):
         hours = BusinessHours.objects.filter(restaurant=self)
         return "; ".join([str(hour) for hour in hours])
 
+    def get_dishes(self):
+        # This joins the names of the Dish instances related to the Restaurant
+        return ", ".join(dish_res.dish.name for dish_res in DishRestaurant.objects.filter(restaurant=self))
+
 
 class Employee(models.Model):
     POSITION_CHOICES = [
