@@ -7,14 +7,21 @@
             {% for d in dishes %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="{{ d.image.url }}" class="card-img-top" alt="{{ d.name }}"
-                             style="width: 100%; height: 200px; object-fit: cover;">
+                        {% if d.image %}
+                            <img style="width: 100%; height: 200px; object-fit: cover;"
+                                 src="{{ d.image.url }}"
+                                 class="card-img-top"
+                                 alt="{{ d.name }}">
+                        {% else %}
+                            <p>No image available</p>  <!-- or you can display a placeholder image -->
+                        {% endif %}
+
                         <div class="card-body">
                             <h5 class="card-title">{{ d.name }}</h5>
                             <ul class="list-unstyled">
-                                <li>Ingredients: {{ d.ingredients }}</li>
+                                <li><strong>Ingredients: </strong>{{ d.ingredients }}</li>
                                 {% if d.calories <= 200 %}
-                                    <li>Calories: Low</li>
+                                    <li><strong>Calories: </strong>Low</li>
                                 {% else %}
                                     <li>Calories: {{ d.calories }}</li>
                                 {% endif %}
