@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from restapp.models import Restaurant, Dish, BusinessHours
-from restapp.forms import EmployeeForm, NameForm, RestaurantForm, DishForm, BusinessHoursForm
-from django.forms import inlineformset_factory
+from restapp.models import Restaurant, Dish, BusinessHours, DishRestaurant
+from restapp.forms import EmployeeForm, NameForm, RestaurantForm, DishForm, BusinessHoursForm, DishRestaurantForm
+from django.forms import inlineformset_factory, modelformset_factory
 
 
 # Create your views here.
@@ -69,29 +69,41 @@ def index(request):
 
 def add_restaurant(request):
     BusinessHoursFormSet = inlineformset_factory(Restaurant, BusinessHours, form=BusinessHoursForm, extra=1)
+    # DishRestaurantFormSet = modelformset_factory(DishRestaurant, form=DishRestaurantForm, extra=1)
+    DishRestaurantFormSet = inlineformset_factory(Restaurant, DishRestaurant, form=DishRestaurantForm, extra=1)
 
     if request.method == "POST":
         restaurant_form = RestaurantForm(request.POST)
         formset = BusinessHoursFormSet(request.POST)
+        dish_formset = DishRestaurantFormSet(request.POST)
 
-        if restaurant_form.is_valid() and formset.is_valid():
+        if restaurant_form.is_valid() and formset.is_valid() and dish_formset.is_valid():
             restaurant = restaurant_form.save()
             business_hours = formset.save(commit=False)
+            dishes = dish_formset.save(commit=False)
 
             for hour in business_hours:
                 hour.restaurant = restaurant  # Link the BusinessHours to the new Restaurant
                 hour.save()
+
+            for dish in dishes:
+                dish.restaurant = restaurant
+                dish.save()
 
             return redirect('restaurants')  # Replace with your success URL or redirect
 
     else:
         restaurant_form = RestaurantForm()
         formset = BusinessHoursFormSet()
+        dish_formset = DishRestaurantFormSet(queryset=DishRestaurant.objects.none())
 
     return render(request, 'add_restaurant.html', {
         'restaurant_form': restaurant_form,
-        'formset': formset
+        'formset': formset,
+        'dish_formset': dish_formset,
     })
+
+
 def add_dish(request):
     if request.method == "POST":
         dish = DishForm(request.POST)

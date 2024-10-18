@@ -27,6 +27,20 @@
                                 Add More Hours
                             </button>
 
+                            <!-- Dishes Section -->
+                            <h3>Dishes</h3>
+                            <div id="dish-restaurant-formset">
+                                {{ dish_formset.management_form }}
+                                {% for form in dish_formset %}
+                                    <div class="border p-3 my-2 form-inline">
+                                        {{ form.as_p }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button type="button" class="btn btn-secondary mt-2" id="add_dish">
+                                Add More Dishes
+                            </button>
+
                             <div class="d-grid mt-3">
                                 <input type="submit" value="Submit" class="btn btn-primary">
                             </div>
@@ -37,32 +51,77 @@
         </div>
     </div>
 
-<script>
-    document.getElementById("add_business_hours").addEventListener('click', function () {
-        let formsetDiv = document.getElementById('business-hours-formset');
-        let totalForms = document.querySelector('#id_businesshours_set-TOTAL_FORMS');
-        let formCount = parseInt(totalForms.value);
+    <script>
+        // Functionality to add new Business Hours forms
+        document.getElementById("add_business_hours").addEventListener('click', function () {
+            let formsetDiv = document.getElementById('business-hours-formset');
+            let totalForms = document.querySelector('#id_businesshours_set-TOTAL_FORMS');
 
-        console.log("Button clicked");
+            if (!totalForms) {
+                console.error("Total forms HOURS input not found!");
+                return; // Exit if not found
+            }
 
-        // Clone the template for a new form
-        let newForm = document.querySelector('.form-template').cloneNode(true);
+            console.log(totalForms)
 
-        // Update the cloned form’s input names and IDs to include the new form count
-        let inputs = newForm.querySelectorAll('input, select');
-        inputs.forEach(function (input) {
-            input.name = input.name.replace(`-${formCount - 1}-`, `-${formCount}-`);
-            input.id = input.id.replace(`-${formCount - 1}-`, `-${formCount}-`);
-            input.value = '';  // Clear any previous values
+
+            let formCount = parseInt(totalForms.value);
+
+            console.log("Button clicked");
+
+            // Clone the template for a new form
+            let newForm = document.querySelector('.form-template').cloneNode(true);
+
+            // Update the cloned form’s input names and IDs to include the new form count
+            let inputs = newForm.querySelectorAll('input, select');
+            inputs.forEach(function (input) {
+                input.name = input.name.replace(`-${formCount - 1}-`, `-${formCount}-`);
+                input.id = input.id.replace(`-${formCount - 1}-`, `-${formCount}-`);
+                input.value = '';  // Clear any previous values
+            });
+
+            // Append the new form to the formset
+            formsetDiv.appendChild(newForm);
+
+            // Update the form count in TOTAL_FORMS so Django knows to process this form too
+            totalForms.value = formCount + 1;
         });
 
-        // Append the new form to the formset
-        formsetDiv.appendChild(newForm);
+        document.getElementById("add_dish").addEventListener('click', function () {
+            let formsetDiv = document.getElementById('dish-restaurant-formset');
+            let totalForms = document.querySelector('#id_dishrestaurant_set-TOTAL_FORMS');
 
-        // Update the form count in TOTAL_FORMS so Django knows to process this form too
-        totalForms.value = formCount + 1;
-    });
-</script>
+            if (!totalForms) {
+                console.error("Total forms DISHES input not found!");
+                return; // Exit if not found
+            }
+
+            console.log(totalForms)
+
+
+            let formCount = parseInt(totalForms.value);
+
+            console.log("Button clicked");
+
+            // Clone the template for a new form
+            let newForm = formsetDiv.querySelector('.border').cloneNode(true);
+
+            // Update the cloned form’s input names and IDs to include the new form count
+            let inputs = newForm.querySelectorAll('input, select');
+            inputs.forEach(function (input) {
+                input.name = input.name.replace(`-${formCount - 1}-`, `-${formCount}-`);
+                input.id = input.id.replace(`-${formCount - 1}-`, `-${formCount}-`);
+                input.value = '';  // Clear any previous values
+            });
+
+            // Append the new form to the formset
+            formsetDiv.appendChild(newForm);
+
+            // Update the form count in TOTAL_FORMS so Django knows to process this form too
+            totalForms.value = formCount + 1;
+        });
+
+    </script>
 
 
 
