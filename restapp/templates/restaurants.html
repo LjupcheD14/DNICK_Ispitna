@@ -1,14 +1,37 @@
 {% extends "base.html" %}
 
+
 {% block content %}
+
     <div class="container mt-5">
-        <h3 class="text-center mb-4">Restaurants</h3>
+        <div class="row" style="margin-top: 150px">
+            <!-- Left part for text -->
+            <div class="col-md-6 d-flex align-items-center">
+                <div>
+                    <h2><strong>Welcome to Our Restaurant Management System</strong></h2>
+                    <div style="color: #50433F;
+                                font-size: 20px; margin-top: 50px">
+                        <p>Effortlessly manage all restaurant-related operations, from table
+                            reservations to menu
+                            customization and daily reports.</p>
+                        <p>Streamline processes and optimize service quality with our easy-to-use tools.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Right part for image -->
+            <div class="col-md-6 text-center">
+                <img src="https://th.bing.com/th/id/OIP.yHmEeO2QaTOoAF2vrNCtFgHaFt?rs=1&pid=ImgDetMain"
+                     class="img-fluid" alt="Restaurant Image">
+            </div>
+        </div>
+
+        <h3 style="margin-top: 150px" class="text-center mb-4">Restaurants</h3>
         <div class="row">
             {% for r in restaurants %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h3 class="card-title text-primary  text-center">{{ r.name }}</h3>
+                            <h3 class="card-title text-center" style="color: #000">{{ r.name }}</h3>
                             <p class="card-text"><strong>Location: </strong>{{ r.address }}</p>
                             <p class="card-text"><strong>Phone: </strong>{{ r.phone }}</p>
                             <p class="card-text"><strong>Email: </strong>{{ r.email }}</p>
@@ -22,8 +45,8 @@
                         </div>
                         <div class="card-footer text-center">
                             <a href="{% url 'edit restaurant' r.id %}" class="btn btn-secondary btn-sm">Edit</a>
-                            <a href="{% url 'restaurant details' r.id %}" class="btn btn-info btn-sm">Details</a>
-                            <a href="{% url 'delete restaurant' r.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'restaurant details' r.id %}" class="btn btn-secondary btn-sm">Details</a>
+                            <a href="{% url 'delete restaurant' r.id %}" class="btn btn-secondary btn-sm">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -33,7 +56,7 @@
             <p>Number of restaurants: {{ count }}</p>
         </div>
         <div class="text-center mb-3">
-            <a href="{% url 'Add restaurant' %}" class="btn btn-primary">Add restaurant</a>
+            <a href="{% url 'Add restaurant' %}" class="btn btn-secondary btn-hover-scale">Add restaurant</a>
         </div>
     </div>
 {% endblock %}

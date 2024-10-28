@@ -1,0 +1,11 @@
+.btn-hover-scale {
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.btn-hover-scale:hover {
+    transform: scale(1.1); /* Slightly enlarge the button on hover */
+}
+
+.test{
+    color: red;
+}
