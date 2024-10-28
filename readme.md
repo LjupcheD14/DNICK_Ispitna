@@ -1,6 +1,8 @@
 # Documentation
 ## Short description
 This restaurant management application streamlines the process of organizing and overseeing restaurant operations. It allows users to manage essential details like restaurant locations, menus, business hours, and contact information.
+## Info
+This project is designed to enhance skills in Python and Django through hands-on learning and practice.
 ## Django Setup
 1. django-admin startproject name_of_the_project
 2. cd name_of_the_project
