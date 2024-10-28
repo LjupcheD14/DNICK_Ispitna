@@ -6,6 +6,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                    <h2 class="text-center">Add New Dish</h2>
                     <form action="/add_dish/" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form.as_p }}

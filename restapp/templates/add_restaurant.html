@@ -6,13 +6,13 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Add New Restaurant</h2>
+                        <h2 class="text-center">Add New Restaurant</h2>
 
                         <form action="/add_restaurant/" method="post">
                             {% csrf_token %}
                             {{ restaurant_form.as_p }}
 
-                            <h3>Business Hours</h3>
+                            <h3 class="text-center">Business Hours</h3>
 
                             <div id="business-hours-formset">
                                 {{ formset.management_form }}
@@ -28,7 +28,7 @@
                             </button>
 
                             <!-- Dishes Section -->
-                            <h3>Dishes</h3>
+                            <h3 class="text-center">Dishes</h3>
                             <div id="dish-restaurant-formset">
                                 {{ dish_formset.management_form }}
                                 {% for form in dish_formset %}

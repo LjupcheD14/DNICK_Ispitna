@@ -6,7 +6,8 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <form action="/add_employee/" method="post">
+                    <h2 class="text-center">Add New Employee</h2>
+                    <form style="margin-top: 50px" action="/add_employee/" method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <div class="d-grid">
